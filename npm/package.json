@@ -1,0 +1,30 @@
+{
+  "name": "acany",
+  "version": "1.0.0",
+  "description": "simple support to autocomplete",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "autocomplete",
+    "search",
+    "match",
+    "anymatch",
+    "glob"
+  ],
+  "author": "NPM acany <heyderpd@gmail.com> (http://heyderpd.github.io)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heyderpd/npm-acany.git"
+  },
+  "bugs": {
+    "url": "https://github.com/heyderpd/npm-acany/issues"
+  },
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "anymatch": "^1.3.0",
+    "pytils": "^0.16.1"
+  }
+}
