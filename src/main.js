@@ -98,8 +98,6 @@ const {
   eachVal,
   arrayDiff } = require('pytils')
 
-console.log('arrayDiff', arrayDiff)
-
 const anymatch = require('anymatch')
 
 module.exports = main

@@ -1,6 +1,6 @@
 {
   "name": "acany",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "simple support to autocomplete",
   "main": "index.js",
   "scripts": {
