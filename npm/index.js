@@ -3,7 +3,7 @@
 /*!
  * acany
  * Copyright (c) 2016 heyderpd <heyderpd@gmail.com>
- * ISC Licensed
+ * MIT Licensed
  */
 
 var middle = function middle(word) {

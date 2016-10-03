@@ -1,4 +1,5 @@
 {
+  "license": "MIT",
   "name": "acany",
   "version": "1.0.2",
   "description": "simple support to autocomplete",
@@ -21,7 +22,6 @@
   "bugs": {
     "url": "https://github.com/heyderpd/npm-acany/issues"
   },
-  "license": "ISC",
   "devDependencies": {},
   "dependencies": {
     "anymatch": "^1.3.0",

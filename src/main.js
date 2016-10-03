@@ -2,7 +2,7 @@
 /*!
  * acany
  * Copyright (c) 2016 heyderpd <heyderpd@gmail.com>
- * ISC Licensed
+ * MIT Licensed
  */
 
 const middle = word => '*' + word + '*'
