@@ -9,13 +9,13 @@ const middle = word => '*' + word + '*'
 
 const ___ASTERISK___ = String.fromCharCode(254)
 
-const searchSimple = word => 
+const searchSimple = word =>
   middle(
     word
       .replace('*', '\\*')
       .replace(/\ +/gim, '**'))
 
-const searchComplex = word => 
+const searchComplex = word =>
   middle(
     word
       .replace('*', ___ASTERISK___)
@@ -63,24 +63,24 @@ const doSearch = (need, list, limit) => {
 }
 
 const main = (setNeed = undefined, setList = [], setLimit = 10) => {
+  const list = isArray(setList) && length(setList) > 0
+    ? copy(setList)
+    : undefined
+  if (list === undefined)
+    throw new Error("var 'list' have a invalid value")
+
   const need = isString(setNeed)
     ? setNeed
     : undefined
   if (need === undefined)
-    throw new Error("var 'need' have a invalid value")  
+    throw new Error("var 'need' have a invalid value")
   if (length(need) <= 0)
-    return []
-
-  const list = isArray(setList) && length(setList) > 0
-    ? copy(setList)
-    : undefined
-  if (need === undefined)
-    throw new Error("var 'list' have a invalid value")
+    return setList
 
   const limit = isNumber(setLimit) && setLimit > 0
     ? setLimit
     : undefined
-  if (need === undefined)
+  if (limit === undefined)
     throw new Error("var 'limit' have a invalid value")
 
   return doSearch(

@@ -50,15 +50,15 @@ var main = function main() {
   var setList = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   var setLimit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 10;
 
+  var list = isArray(setList) && length(setList) > 0 ? copy(setList) : undefined;
+  if (list === undefined) throw new Error("var 'list' have a invalid value");
+
   var need = isString(setNeed) ? setNeed : undefined;
   if (need === undefined) throw new Error("var 'need' have a invalid value");
-  if (length(need) <= 0) return [];
-
-  var list = isArray(setList) && length(setList) > 0 ? copy(setList) : undefined;
-  if (need === undefined) throw new Error("var 'list' have a invalid value");
+  if (length(need) <= 0) return setList;
 
   var limit = isNumber(setLimit) && setLimit > 0 ? setLimit : undefined;
-  if (need === undefined) throw new Error("var 'limit' have a invalid value");
+  if (limit === undefined) throw new Error("var 'limit' have a invalid value");
 
   return doSearch(need, list, limit);
 };
