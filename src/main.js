@@ -24,42 +24,52 @@ const searchComplex = word =>
       .join('**')
       .replace(___ASTERISK___, '\\*'))
 
-const findAnyMatch = (need, setList, limit) => {
+const findAnyMatch = (anyneed, setList, limit) => {
   if (limit <= 0)
     return []
 
   const list = copy(setList)
-  let found = []
-  while ( length(found) < limit && length(list) > 0 ) {
+  const found = {}
+  let foundCount = 0
+  let ref
+  while ( foundCount < limit && length(list) > 0 ) {
     let item = list.shift()
-    if ( anymatch(need, item) )
-      found.push( item )
+    if ( (ref = anymatch(anyneed, item, true)) >= 0 ) {
+      if ( !hasProp(found, ref) ) {
+        found[ref] = []
+      }
+      found[ref].push( item )
+      foundCount++
+    }
   }
   return found
 }
 
-const doSearch = (need, list, limit) => {
-  const needSimple = searchSimple(need)
-  const needComplex = searchComplex(need)
+const concatResult = (results) => {
+  const found = []
+  eachVal(results, maths => {
+    if (length(maths) > 0) {
+      eachVal(maths, item => {
+        found.push( item )
+      })
+    }
+  })
+  return found
+}
 
-  let found = findAnyMatch(
+const doSearch = (need, list, limit) => {
+  const anyneed = [
     need,
+    searchSimple(need),
+    searchComplex(need)
+  ]
+
+  const found = findAnyMatch(
+    anyneed,
     copy(list),
     limit)
 
-  found = found.concat(
-    findAnyMatch(
-      needSimple,
-      list = arrayDiff(list, found),
-      limit - length(found)))
-
-  found = found.concat(
-    findAnyMatch(
-      needComplex,
-      list = arrayDiff(list, found),
-      limit - length(found)))
-
-  return found
+  return concatResult(found)
 }
 
 const main = (setNeed = undefined, setList = [], setLimit = 10) => {
@@ -96,7 +106,8 @@ const {
   length,
   copy,
   eachVal,
-  arrayDiff } = require('pytils')
+  arrayDiff,
+  hasProp } = require('pytils')
 
 const anymatch = require('anymatch')
 

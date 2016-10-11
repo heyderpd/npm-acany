@@ -1,7 +1,9 @@
 
+npm-debug*
+
 node_modules/*
 npm/node_modules/*
 
-/package.json
+test/big/*
 
-test*
+/package.json

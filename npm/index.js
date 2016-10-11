@@ -20,29 +20,44 @@ var searchComplex = function searchComplex(word) {
   return middle(word.replace('*', ___ASTERISK___).replace(/\ +/gim, '').split('').join('**').replace(___ASTERISK___, '\\*'));
 };
 
-var findAnyMatch = function findAnyMatch(need, setList, limit) {
+var findAnyMatch = function findAnyMatch(anyneed, setList, limit) {
   if (limit <= 0) return [];
 
   var list = copy(setList);
-  var found = [];
-  while (length(found) < limit && length(list) > 0) {
+  var found = {};
+  var foundCount = 0;
+  var ref = void 0;
+  while (foundCount < limit && length(list) > 0) {
     var item = list.shift();
-    if (anymatch(need, item)) found.push(item);
+    if ((ref = anymatch(anyneed, item, true)) >= 0) {
+      if (!hasProp(found, ref)) {
+        found[ref] = [];
+      }
+      found[ref].push(item);
+      foundCount++;
+    }
   }
   return found;
 };
 
-var doSearch = function doSearch(need, list, limit) {
-  var needSimple = searchSimple(need);
-  var needComplex = searchComplex(need);
-
-  var found = findAnyMatch(need, copy(list), limit);
-
-  found = found.concat(findAnyMatch(needSimple, list = arrayDiff(list, found), limit - length(found)));
-
-  found = found.concat(findAnyMatch(needComplex, list = arrayDiff(list, found), limit - length(found)));
-
+var concatResult = function concatResult(results) {
+  var found = [];
+  eachVal(results, function (maths) {
+    if (length(maths) > 0) {
+      eachVal(maths, function (item) {
+        found.push(item);
+      });
+    }
+  });
   return found;
+};
+
+var doSearch = function doSearch(need, list, limit) {
+  var anyneed = [need, searchSimple(need), searchComplex(need)];
+
+  var found = findAnyMatch(anyneed, copy(list), limit);
+
+  return concatResult(found);
 };
 
 var main = function main() {
@@ -72,6 +87,7 @@ var length = _require.length;
 var copy = _require.copy;
 var eachVal = _require.eachVal;
 var arrayDiff = _require.arrayDiff;
+var hasProp = _require.hasProp;
 
 
 var anymatch = require('anymatch');
